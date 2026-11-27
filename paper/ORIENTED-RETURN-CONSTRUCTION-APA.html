@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="author" content="Taylor Westfall-McCoy; OpenAI Codex (gpt-5.6-sol), Blu">
+  <meta name="description" content="A one-page technical note stating the oriented return construction theorem.">
+  <title>The Oriented Return Construction</title>
+  <style>
+    @page { size: Letter; margin: 0; }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; background: white; }
+    body { color: #111; font-family: "Times New Roman", Times, serif; font-size: 11pt; }
+    .page { position: relative; width: 8.5in; height: 11in; padding: 0.82in 1in 0.78in; overflow: hidden; }
+    .page-number { position: absolute; top: 0.38in; right: 1in; font-size: 11pt; }
+    h1, h2, p { margin: 0; }
+    h1 { font-size: 15pt; line-height: 1.25; text-align: center; font-weight: 700; }
+    h2 { margin-top: 0.10in; font-size: 11pt; line-height: 1.45; text-align: center; font-weight: 700; }
+    p { line-height: 1.45; text-indent: 0.45in; }
+    .subtitle { margin: 0.07in 0 0.12in; text-align: center; text-indent: 0; font-style: italic; }
+    .abstract { text-indent: 0; }
+    .equation { margin: 0.03in 0; text-align: center; text-indent: 0; line-height: 1.35; font-style: italic; }
+    .no-indent { text-indent: 0; }
+    .references { margin-top: 0.06in; }
+    .reference { padding-left: 0.38in; text-indent: -0.38in; line-height: 1.2; font-size: 9pt; }
+    .reference + .reference { margin-top: 0.04in; }
+    .author-note { position: absolute; left: 1in; right: 1in; bottom: 0.45in; border-top: 0.5pt solid #777; padding-top: 0.08in; text-indent: 0; line-height: 1.2; font-size: 9pt; }
+    a { color: #111; text-decoration: none; }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <div class="page-number">1</div>
+    <h1>The Oriented Return Construction:<br>A 26-Gate Heawood Circuit Reduction</h1>
+    <p class="subtitle">A solver-independent constructive theorem</p>
+
+    <h2>Abstract</h2>
+    <p class="abstract">A Lean-verified six-port law gives the finite relations
+    <em>T</em><sup>6</sup> = <em>I</em>, <em>M</em><sup>2</sup> = <em>I</em>, and
+    <em>MTM</em> = <em>T</em><sup>−1</sup>. Exhaustive replay localizes all 36
+    errors of a measured Heawood near-circuit to two disjoint forbidden
+    diagonals inside one nine-input return cell. The result below reduces the
+    full 26-gate problem to an exact 10-gate construction of that cell.</p>
+
+    <h2>Constructive Theorem</h2>
+    <p class="no-indent">For Boolean variables <em>p, q, r, a, b, d, c, e,
+    f</em>, define</p>
+    <p class="equation"><em>S</em> = <em>p</em>(<em>a</em> ∨ <em>b</em> ∨
+    <em>c</em>) ∨ <em>q</em>(<em>a</em> ∨ <em>d</em> ∨ <em>e</em>) ∨
+    <em>r</em>(<em>b</em> ∨ <em>d</em> ∨ <em>f</em>).</p>
+    <p><strong>Theorem.</strong> If a 10-gate fan-in-two AND/OR/NOT circuit
+    computes <em>S</em>, then a 26-gate circuit computes the edge function of the
+    14-vertex Heawood incidence graph.</p>
+    <p><strong>Proof.</strong> Map the three terms of <em>S</em> to point stars 0,
+    1, and 6. Compute point stars 2, 3, 4, and 5 with three gates each, then join
+    the five outputs with four OR gates. The seven stars partition the 21 graph
+    edges, so their disjunction is exact, and the size is</p>
+    <p class="equation">10 + 4(3) + 4 = 26. ∎</p>
+
+    <h2>Verification Status</h2>
+    <p>The theorem is independent of any solver. The explicit 10-gate cell is
+    the remaining finite target. A published assembler accepts a candidate only
+    after the 512-row local table, all 16,384 full inputs, and Lean kernel
+    checking agree.</p>
+
+    <h2>References</h2>
+    <div class="references">
+      <p class="reference">de Moura, L., &amp; Ullrich, S. (2021). The Lean 4
+      theorem prover. In A. Platzer &amp; G. Sutcliffe (Eds.), <em>Automated
+      deduction—CADE 28</em> (pp. 625–635). Springer.
+      https://doi.org/10.1007/978-3-030-79876-5_37</p>
+      <p class="reference">Westfall-McCoy, T., &amp; Blu. (2026). <em>Oriented
+      reciprocal six-port law</em> [Software and technical record]. GitHub.
+      https://github.com/tmccoy678/oriented-six-port-law</p>
+    </div>
+
+    <p class="author-note"><strong>Author note.</strong> Taylor Westfall-McCoy.
+    AI assistance: OpenAI Codex (gpt-5.6-sol), “Blu.” The exact search instance
+    was published before verdict at
+    https://github.com/tmccoy678/oriented-six-port-law/releases/tag/v0.5.0.</p>
+  </main>
+</body>
+</html>

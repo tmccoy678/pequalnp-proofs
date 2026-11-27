@@ -160,4 +160,19 @@ theorem eval_orderDualCircuit (C : Circuit) (x : List Bool)
   rw [fold_length]
   exact hout
 
+/-- Distinct owned cuts overflow the free column inputs into internal gate wires. -/
+theorem cutWire_overflow {α : Type} [DecidableEq α]
+    (owned free : Finset α) (rows columns : ℕ)
+    (hfree : free ⊆ owned) (howned : owned.card = rows)
+    (hfreeCard : free.card ≤ columns) :
+    rows - columns ≤ (owned \ free).card := by
+  rw [Finset.card_sdiff_of_subset hfree, howned]
+  omega
+
+theorem eight_by_six_overflow {α : Type} [DecidableEq α]
+    (owned free : Finset α) (hfree : free ⊆ owned)
+    (howned : owned.card = 8) (hfreeCard : free.card ≤ 6) :
+    2 ≤ (owned \ free).card := by
+  simpa using cutWire_overflow owned free 8 6 hfree howned hfreeCard
+
 end PEqualNP.Outside.ReadOnceDual
